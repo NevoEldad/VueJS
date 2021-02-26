@@ -20,32 +20,47 @@
       <section id="monster" class="container">
         <h2>Monster Health</h2>
         <div class="healthbar">
-          <div class="healthbar__value" :style="monsterBarStyle"></div>
+          <div class="healthbar__value" :style="monsterBarStyles"></div>
         </div>
       </section>
       <section id="player" class="container">
         <h2>Your Health</h2>
         <div class="healthbar">
-          <div class="healthbar__value" :style="playerBarStyle"></div>
+          <div class="healthbar__value" :style="playerBarStyles"></div>
         </div>
       </section>
-      <section v-if="winner">
-        <h1 v-if="winner==='draw'">Draw!</h1>
-        <h1 v-if="winner==='You'"> You win!</h1>
-        <h1 v-if="winner==='Monster'">You Lost!</h1>
-        <button @click="startNewGame">Start new game</button>
+      <section class="container" v-if="winner">
+        <h2>Game Over!</h2>
+        <h3 v-if="winner === 'monster'">You lost!</h3>
+        <h3 v-else-if="winner === 'player'">You won!</h3>
+        <h3 v-else>It's a draw!</h3>
+        <button @click="startGame">Start New Game</button>
       </section>
-      <section id="controls" v-if="!winner">
-        <button @click="attackMonster(8)">ATTACK</button>
-        <button @click="specialAttack(15)" :disabled="mayUseSpecialAttack">SPECIAL ATTACK</button>
-        <button @click="healPlayer(11)">HEAL</button>
+      <section id="controls" v-else>
+        <button @click="attackMonster">ATTACK</button>
+        <button :disabled="mayUseSpecialAttack" @click="specialAttackMonster">
+          SPECIAL ATTACK
+        </button>
+        <button @click="healPlayer">HEAL</button>
         <button @click="surrender">SURRENDER</button>
       </section>
       <section id="log" class="container">
         <h2>Battle Log</h2>
         <ul>
-          <li v-for="msg in logMessages">
-            {{msg.actionBy}} - {{msg.actionType}} - {{msg.actionValue}}
+          <li v-for="logMessage in logMessages">
+            <span
+              :class="{'log--player': logMessage.actionBy === 'player', 'log--monster': logMessage.actionBy === 'monster'}"
+              >{{ logMessage.actionBy === 'player' ? 'Player' : 'Monster'
+              }}</span
+            >
+            <span v-if="logMessage.actionType === 'heal'">
+              heals himself for
+              <span class="log--heal">{{ logMessage.actionValue }}</span></span
+            >
+            <span v-else>
+              attacks and deals
+              <span class="log--damage">{{ logMessage.actionValue }}</span>
+            </span>
           </li>
         </ul>
       </section>
