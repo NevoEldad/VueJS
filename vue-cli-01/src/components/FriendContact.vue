@@ -1,8 +1,8 @@
 <template>
   <li>
     <h2>{{friend.name}}</h2>
-    <button>Show/Hide</button>
-    <ul>
+    <button @click="toggleDetails">Show/Hide</button>
+    <ul v-if="!detailsAreVisible">
       <li>
         <strong>Phone:</strong>
         {{friend.phone}}
@@ -24,7 +24,7 @@ export default {
       friend: {
         id: 123,
         name: "Eli",
-        phone: 055555555,
+        phone: "055555555",
         email: "Eli@eliserver.com"
       }
     };
