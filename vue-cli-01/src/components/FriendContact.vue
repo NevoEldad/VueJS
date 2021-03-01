@@ -1,16 +1,15 @@
 <template>
   <li>
-    <h2>{{friend.name}}</h2>
-    <button @click="toggleDetails">Show/Hide</button>
-    <ul v-if="!detailsAreVisible">
+    <h2>{{ friend.name }}</h2>
+    <button @click="toggleDetails">Show Details</button>
+    <ul v-if="detailsAreVisible">
       <li>
         <strong>Phone:</strong>
-        {{friend.phone}}
+        {{ friend.phone }}
       </li>
       <li>
-        <strong>EMail:</strong>
-        {{friend.email}}
-        }}
+        <strong>Email:</strong>
+        {{ friend.email }}
       </li>
     </ul>
   </li>
@@ -22,11 +21,11 @@ export default {
     return {
       detailsAreVisible: false,
       friend: {
-        id: 123,
-        name: "Eli",
-        phone: "055555555",
-        email: "Eli@eliserver.com"
-      }
+        id: "manuel",
+        name: "Manuel Lorenz",
+        phone: "0123 45678 90",
+        email: "manuel@localhost.com",
+      },
     };
   },
   methods: {
