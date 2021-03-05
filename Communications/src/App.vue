@@ -20,7 +20,7 @@ export default {
     return {
       users: [
         {
-          name: "Manuel Lorenz",
+          name: "HEZI",
           age: "10"
         }
       ]
